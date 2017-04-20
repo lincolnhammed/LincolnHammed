@@ -10,5 +10,6 @@ namespace LincolnHammed.Models
 
         public long CategoryId { get; set; }
         public string Nome { get; set; }
+
     }
 }
