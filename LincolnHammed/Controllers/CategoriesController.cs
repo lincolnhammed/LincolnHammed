@@ -1,7 +1,10 @@
-﻿using LincolnHammed.Models;
+﻿using LincolnHammed.Contexts;
+using LincolnHammed.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,86 +12,152 @@ namespace LincolnHammed.Controllers
 {
     public class CategoriesController : Controller
     {
-        #region [List Category]
-        private static IList<Category> categories = new List<Category>()
-        {
-            new Category() {CategoryId = 1, Nome= "Notebooks"},
-            new Category() {CategoryId = 2, Nome= "Monitores"},
-            new Category() {CategoryId = 3, Nome= "Impressoras"},
-            new Category() {CategoryId = 4, Nome= "mauses"},
-            new Category() {CategoryId = 5, Nome= "Desktops"}
-        };
-        #endregion
 
-        #region[Index]
+        #region [ Properties ]
+
+        private EFContext context =
+            new EFContext();
+
+        #endregion [ Properties ]
+
+        #region [ Actions ]
+
         // GET: Categories
         public ActionResult Index()
         {
+            var categories = context
+                .Categories
+
+                .OrderBy(s => s.Nome);
+
             return View(categories);
         }
-        #endregion
 
-        #region[Create]
+        // GET: Categories/Details/5
+        public ActionResult Details(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(
+                    HttpStatusCode.BadRequest);
+            }
+
+            var category = context
+                .Categories.Find(id);
+
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(category);
+        }
+
+        #region [ Create ]
+
+        // GET: Categories/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        // POST: Categories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category category)
         {
-            categories.Add(category);
-            category.CategoryId = categories.Select(m => m.CategoryId).Max() + 1;
-            return RedirectToAction("index");
-        }
-        #endregion
+            context.Categories.Add(category);
+            context.SaveChanges();
 
-        #region [Edit]
-        public ActionResult Edit(long Id)
+            return RedirectToAction("Index");
+        }
+
+        #endregion [ Create ]
+
+        #region [ Edit ]
+
+        // GET: Categories/Edit/5
+        public ActionResult Edit(long? id)
         {
-            return View(LoadCategory(Id));
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(
+                    HttpStatusCode.BadRequest);
+            }
+
+            var category = context
+                .Categories.Find(id);
+
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(category);
         }
 
+        // POST: Categories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Category category)
         {
-            var idx = categories.IndexOf(LoadCategory(category.CategoryId));
-            categories[idx] = category;
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                context.Entry(category)
+                        .State = EntityState.Modified;
+                context.SaveChanges();
 
+                return RedirectToAction("Index");
+            }
 
+            return View(category);
         }
-        #endregion
 
-        #region[Delete]
-        public ActionResult Delete(long Id)
+        #endregion [ Edit ]
+
+        #region [ Delete ]
+
+        // GET: Categories/Delete/5
+        public ActionResult Delete(long? id)
         {
-            return View(LoadCategory(Id));
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(
+                    HttpStatusCode.BadRequest);
+            }
+
+            var category = context
+                .Categories.Find(id);
+
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(category);
         }
 
+        // POST: Categories/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Category category)
+        public ActionResult Delete(long id)
         {
-            var idx = categories.Remove(LoadCategory(category.CategoryId));
+            var category = context
+                .Categories
+                .Find(id);
+
+            context
+                .Categories
+                .Remove(category);
+
+            context.SaveChanges();
+
             return RedirectToAction("Index");
         }
-        #endregion
 
-        #region [Details]
-        public ActionResult Details(long Id)
-        {
-            return View(LoadCategory(Id));
-        }
-        #endregion
+        #endregion [ Edit ]
 
-        #region[Bank function]
-        private Category LoadCategory(long categoryId)
-        {
-            return categories.Where(c => c.CategoryId == categoryId).First();
-        }
-        #endregion
+        #endregion [ Actions ]
+
     }
 }

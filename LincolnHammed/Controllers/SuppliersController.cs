@@ -25,7 +25,7 @@ namespace LincolnHammed.Controllers
             // select new {
             //    Name =supplier.Nome
             //};
-            return View(context.Supplier.OrderBy(c => c.Nome));
+            return View(context.Suppliers.OrderBy(c => c.Nome));
         }
 
         #region[Create]
@@ -39,7 +39,7 @@ namespace LincolnHammed.Controllers
         // sobresquita de metodo varias assinaturas diferentes
         public ActionResult Create(Supplier supplier)
         {
-            context.Supplier.Add(supplier);
+            context.Suppliers.Add(supplier);
             context.SaveChanges();
             return RedirectToAction("Index");
 
@@ -53,7 +53,7 @@ namespace LincolnHammed.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Supplier supplier = context.Supplier.Find(id);
+            Supplier supplier = context.Suppliers.Find(id);
             if (supplier == null)
             {
                 return HttpNotFound();
@@ -86,7 +86,7 @@ namespace LincolnHammed.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Supplier supplier = context.Supplier.Find(id);
+            Supplier supplier = context.Suppliers.Find(id);
 
             if (supplier == null)
             {
@@ -104,7 +104,7 @@ namespace LincolnHammed.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Supplier supplier = context.Supplier.Find(id);
+            Supplier supplier = context.Suppliers.Find(id);
             if (supplier == null)
             {
                 return HttpNotFound();
@@ -119,8 +119,8 @@ namespace LincolnHammed.Controllers
         public ActionResult Delete(long id)
         {
 
-            Supplier supplier = context.Supplier.Find(id);
-            context.Supplier.Remove(supplier);
+            Supplier supplier = context.Suppliers.Find(id);
+            context.Suppliers.Remove(supplier);
             context.SaveChanges();
             TempData["Message"] = "Fabricante	"
                 + supplier.Nome.ToUpper()

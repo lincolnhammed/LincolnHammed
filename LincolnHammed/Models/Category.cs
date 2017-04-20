@@ -10,6 +10,6 @@ namespace LincolnHammed.Models
 
         public long CategoryId { get; set; }
         public string Nome { get; set; }
-
+        public virtual ICollection<Product> Product { get; set; }
     }
 }

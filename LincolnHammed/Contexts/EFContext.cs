@@ -11,18 +11,23 @@ namespace LincolnHammed.Contexts
     {
         #region[DbSet Properties]
 
-        public DbSet<Category> Category { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
-       // vamos ter uma propriedade Supplier isso vai setar uma tabela
-        public DbSet<Supplier> Supplier { get; set; }
+        // vamos ter uma propriedade Supplier isso vai setar uma tabela
+        public DbSet<Supplier> Suppliers { get; set; }
+
+        public DbSet<Product> Products { get; set; }
         #endregion
 
         #region[Constructor]
-       // connection String
-        public EFContext():base("Asp_Net_MVC_CS")
+        // connection String
+        public EFContext() : base("Asp_Net_MVC_CS")
         {
-
+            Database.SetInitializer<EFContext>(
+                new DropCreateDatabaseIfModelChanges<EFContext>()
+                );
         }
+
         #endregion
     }
 }
