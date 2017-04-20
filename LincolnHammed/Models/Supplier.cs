@@ -11,5 +11,6 @@ namespace LincolnHammed.Models
         [Key]
         public long SupplierId { get; set; }
         public string Nome { get; set; }
+
     }
 }
