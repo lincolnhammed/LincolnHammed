@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;	
+using System.Data.Entity;
+using LincolnHammed.Models;
 
 namespace LincolnHammed.Controllers
 {
@@ -14,8 +15,11 @@ namespace LincolnHammed.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            var produtos = context.Products.Include(c => c.Category).
-                Include(f => f.Supplier).OrderBy(n => n.Nome);
+            var produtos = context
+                .Products
+                .Include(c => c.Category)
+                .Include(f => f.Supplier)
+                .OrderBy(n => n.Nome);
             return View(produtos);
         }
 
@@ -37,19 +41,21 @@ namespace LincolnHammed.Controllers
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Product product)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                context.Products.Add(product);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(product);
             }
         }
+
 
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
