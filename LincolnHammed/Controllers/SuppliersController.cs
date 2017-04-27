@@ -25,7 +25,10 @@ namespace LincolnHammed.Controllers
             // select new {
             //    Name =supplier.Nome
             //};
-            return View(context.Suppliers.OrderBy(c => c.Nome));
+            var supplier= context.Suppliers.OrderBy(s => s.Nome);
+
+            return View(supplier);
+            
         }
 
         #region[Create]
@@ -86,7 +89,7 @@ namespace LincolnHammed.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Supplier supplier = context.Suppliers.Find(id);
+            Supplier supplier = context.Suppliers.Where(f => f.SupplierId == id).Include("Product.Supplier").First();
 
             if (supplier == null)
             {

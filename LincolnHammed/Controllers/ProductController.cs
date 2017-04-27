@@ -20,7 +20,7 @@ namespace LincolnHammed.Controllers
                 .Products
                 .Include(c => c.Category)
                 .Include(f => f.Supplier)
-                .OrderBy(n => n.Nome);
+                .OrderBy(n => n.Supplier.Nome);
             return View(produtos);
         }
 
@@ -129,6 +129,7 @@ namespace LincolnHammed.Controllers
         // POST: Product/Delete/5
         //	POST:	Produtos/Delete/5 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(long id)
         {
             try

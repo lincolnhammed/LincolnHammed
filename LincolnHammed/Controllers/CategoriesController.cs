@@ -26,9 +26,7 @@ namespace LincolnHammed.Controllers
         public ActionResult Index()
         {
             var categories = context
-                .Categories
-
-                .OrderBy(s => s.Nome);
+                .Categories.OrderBy(s => s.Nome);
 
             return View(categories);
         }
