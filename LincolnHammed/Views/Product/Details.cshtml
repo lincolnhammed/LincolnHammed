@@ -41,8 +41,7 @@
             </div>
         </div>
     </div>
-
-    	@Html.Partial("~/Views/Suppliers/_PorFabricante.cshtml", Model.Supplier.ToList())
+    
     <div class="panel-footer	panel-info">
         @Html.ActionLink("Alterar", "Edit", new { id = Model.ProductId }, new { @class = "btn	btn-info" })
         @Html.ActionLink("Retornar	para	a	listagem", "Index", null, new { @class = "btn	btn-info" })

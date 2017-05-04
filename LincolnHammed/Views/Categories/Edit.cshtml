@@ -37,9 +37,11 @@
                 <br />
                 <br />
             </div>
-        </div>
+      </div>
     </div>
+    
 }
+@Html.Partial("~/Views/Product/_ByCategory.cshtml", Model.Products.ToList());
 @section	ScriptPage	{
     <script src="~/Scripts/jquery.validate.min.js">
 

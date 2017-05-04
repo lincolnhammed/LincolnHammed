@@ -89,7 +89,11 @@ namespace LincolnHammed.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Supplier supplier = context.Suppliers.Where(f => f.SupplierId == id).Include("Product.Supplier").First();
+            Supplier supplier = context
+                .Suppliers
+                .Where(f => f.SupplierId == id)
+                .Include("Products.Category")
+                .First();
 
             if (supplier == null)
             {
@@ -107,6 +111,7 @@ namespace LincolnHammed.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Supplier supplier = context.Suppliers.Find(id);
             if (supplier == null)
             {

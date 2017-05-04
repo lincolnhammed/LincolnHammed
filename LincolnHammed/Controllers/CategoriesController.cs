@@ -41,7 +41,10 @@ namespace LincolnHammed.Controllers
             }
 
             var category = context
-                .Categories.Find(id);
+                .Categories
+                .Where(f => f.CategoryId == id)
+                .Include("Products.Supplier")
+                .First();
 
             if (category == null)
             {
@@ -124,8 +127,7 @@ namespace LincolnHammed.Controllers
                     HttpStatusCode.BadRequest);
             }
 
-            var category = context
-                .Categories.Find(id);
+            var category = context.Categories.Find(id);
 
             if (category == null)
             {
