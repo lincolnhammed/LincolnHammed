@@ -1,4 +1,4 @@
-﻿@model LincolnHammed.Models.Supplier
+﻿@model Models.Register.Supplier
 
 @{				Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Alterando	os	dados	de	um	FABRICANTE";
@@ -11,15 +11,8 @@
         Dados	do	fabricante	a	ser	removido
     </div>
     <div class="panel-body">
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome)<br />
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <i class="glyphicon	glyphicon-user">
-                    </i>
-                </span>
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-            </div>
+        <div class="panel-body">
+            @Html.Partial("~/Views/Suppliers/_PartialDetailsContentPanel.cshtml", Model)
         </div>
     </div>
     <div class="panel-footer	panel-info">

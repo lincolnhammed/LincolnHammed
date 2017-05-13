@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Models.Register;
+using Models.Tables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 
-namespace LincolnHammed.Models
+namespace Models.Register
 {
     public class Product
     {

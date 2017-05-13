@@ -364,16 +364,14 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Contexts\EFContext.cs" />
+    <Compile Include="Controllers\API\CategoriesController.cs" />
+    <Compile Include="Controllers\API\SuppliersController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +395,9 @@
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Product\_BySupplier.cshtml" />
     <Content Include="Views\Product\_ByCategory.cshtml" />
+    <Content Include="Views\Product\_PartialDetailsContentPanel.cshtml" />
+    <Content Include="Views\Categories\_PartialDetailsContentPanel.cshtml" />
+    <Content Include="Views\Suppliers\_PartialDetailsContentPanel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -406,6 +407,22 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Contexts\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{26be78a8-140e-4741-9c82-c4901fd3e99e}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistences\Persistences.csproj">
+      <Project>{2d60728f-0a4e-4b51-a339-9c286161b7e1}</Project>
+      <Name>Persistences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{891f61b8-18c2-4dc1-a8e3-81433d410e76}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

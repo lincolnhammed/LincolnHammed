@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LincolnHammed.Models.Product>
+﻿@model IEnumerable<Models.Register.Product>
 
 @{				Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Listagem	de	FABRICANTES";
@@ -22,7 +22,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Nome)
                     </th>
-                    <th></th>
                     <th>Categoria</th>
                     <th>Fabricante</th>
                     <th></th>
@@ -34,10 +33,6 @@
 
                 {
                     <tr>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductId)
-                        </td>
 
                         <td>
                             @Html.DisplayFor(modelItem => item.Nome)

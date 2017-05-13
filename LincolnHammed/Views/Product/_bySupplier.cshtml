@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LincolnHammed.Models.Product>
+﻿@model IEnumerable<Models.Register.Product>
 <div class="panel	panel-primary">
 
     <div class="panel-heading">
@@ -12,7 +12,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Nome)
                     </th>
-                    <th>@Html.DisplayNameFor(model => model.Category)</th>
+                    <th>@Html.DisplayNameFor(model => model.Nome)</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Category.Nome)
+                            @Html.DisplayFor(modelItem => item.Supplier.Nome)
                         </td>
                     </tr>
             }

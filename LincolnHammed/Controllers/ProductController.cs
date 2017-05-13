@@ -1,17 +1,152 @@
-﻿using LincolnHammed.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Data.Entity;
-using LincolnHammed.Models;
+﻿using System.Web.Mvc;
 using System.Net;
+using Models.Register;
+using Service.Registration;
+using Service.Tables;
+using Service.Registers;
 
 namespace LincolnHammed.Controllers
 {
     public class ProductController : Controller
     {
+
+
+        private ProductService productService = new ProductService();
+        private CategoryService categoryService = new CategoryService();
+        private SupplierService supplierService = new SupplierService();
+
+        #region [Index]
+        public ActionResult Index()
+        {
+            return View(productService.
+           GetProductsOrderByForName());
+        }
+        #endregion
+
+        #region[Edit]
+        public ActionResult Edit(long? id)
+        {
+            PublicViewBag(productService.GetProductById((long)id));
+            return GetViewProductById(id);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            return SaveProduct(product);
+        }
+        #endregion
+
+        #region[Create]
+        public ActionResult Create()
+        {
+            PublicViewBag();
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Product product)
+        {
+            return SaveProduct(product);
+        }
+        #endregion
+
+        #region[ Delete]
+        public ActionResult Delete(long? id)
+        {
+            return GetViewProductById(id);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(long id)
+        {
+            try
+            {
+                Product product = productService.DeleteProductForId(id);
+                TempData["Message"] = "Product " + product.Nome.ToUpper()
+                + " was removed";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        #endregion
+
+        #region[ Details] 
+
+        public ActionResult Details(long? id)
+        {
+            return GetViewProductById(id);
+        }
+        #endregion
+
+        #region[SaveProduct]
+        private ActionResult SaveProduct(Product product)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    productService.SaveProduct(product);
+                    return RedirectToAction("Index");
+                }
+                return View(product);
+            }
+            catch
+            {
+                return View(product);
+            }
+        }
+        #endregion
+
+        #region[GetViewProductById] 
+        private ActionResult GetViewProductById(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(
+                HttpStatusCode.BadRequest);
+            }
+            Product product = productService.GetProductById((long)id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
+        }
+        #endregion
+   
+        #region[PublicViewBag]
+        private void PublicViewBag(Product product = null)
+        {
+            if (product == null)
+            {
+                ViewBag.CategoryId = new SelectList(categoryService.
+                GetCategoriesOrderByName(),
+                "CategoryId", "Nome");
+                ViewBag.SupplierId = new SelectList(supplierService.
+               GetSuppliersByForName(),
+                "SupplierId", "Nome");
+            }
+
+            else
+            {
+                ViewBag.CategoryId = new SelectList(categoryService.
+                GetCategoriesOrderByName(),
+                "CategoryId", "Nome", product.CategoryId);
+                ViewBag.SupplierId = new SelectList(supplierService.
+               GetSuppliersByForName(),
+                "SupplierId", "Nome", product.SupplierId);
+            }
+
+        }
+#endregion
+
+        #region[comentario]
+        /*
         private EFContext context = new EFContext();
         // GET: Product
         public ActionResult Index()
@@ -31,7 +166,9 @@ namespace LincolnHammed.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = context.Products.Where(p => p.ProductId == id)
+            Product product = context
+                .Products
+                .Where(p => p.ProductId == id)
               .Include(c => c.Category)
               .Include(f => f.Supplier).First();
             if (product == null)
@@ -145,6 +282,7 @@ namespace LincolnHammed.Controllers
             {
                 return View();
             }
-        }
+        }*/
+        #endregion
     }
 }

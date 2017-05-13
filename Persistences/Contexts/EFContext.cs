@@ -1,11 +1,14 @@
-﻿using LincolnHammed.Models;
+﻿
+
+using Models.Register;
+using Models.Tables;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace LincolnHammed.Contexts
+namespace Persistences.Contexts
 {
     public class EFContext : DbContext
     {

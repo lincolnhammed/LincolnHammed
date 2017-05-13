@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Models.Register;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace LincolnHammed.Models
+namespace Models.Tables
 {
-    public class Supplier
+    public class Category
     {
-        [Key]
-        public long SupplierId { get; set; }
+
+        public long? CategoryId { get; set; }
         public string Nome { get; set; }
         public virtual ICollection<Product> Products { get; set; }
     }
