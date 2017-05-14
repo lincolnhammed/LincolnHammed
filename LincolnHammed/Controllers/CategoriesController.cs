@@ -1,4 +1,5 @@
 ﻿using Models.Tables;
+using Newtonsoft.Json;
 using Persistences.Contexts;
 using Service.Registers;
 using Service.Registration;
@@ -8,6 +9,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,11 +19,11 @@ namespace LincolnHammed.Controllers
     public class CategoriesController : Controller
     {
         #region[//]
-        
+
         private ProductService productService = new ProductService();
         private CategoryService categoryService = new CategoryService();
         private SupplierService supplierService = new SupplierService();
-
+        /*
         #region [Index]
         public ActionResult Index()
         {
@@ -28,7 +31,7 @@ namespace LincolnHammed.Controllers
            GetCategoriesOrderByName());
         }
         #endregion
-
+        */
         #region[Edit]
         public ActionResult Edit(long? id)
         {
@@ -146,8 +149,54 @@ namespace LincolnHammed.Controllers
 
         }
         #endregion
-       
+
         #endregion[//]
+        #region[api]
+
+        public async Task<ActionResult> Index()
+        {
+            var list = new List<Category>();
+            {
+                var resp = await Get(null, response =>
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var result = response.Content.ReadAsStringAsync().Result;
+                        list = JsonConvert.DeserializeObject<List<Category>>(result);
+                    }
+                });
+                return View(list);
+            }
+        }
+        private async Task<HttpResponseMessage> Get(long? id, Action<HttpResponseMessage> action)
+        {
+            using (var client = new HttpClient())
+            {
+                var baseUrl = string.Format("{0}://{1}",
+                    HttpContext.Request.Url.Scheme,
+                    HttpContext.Request.Url.Authority);
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Clear();
+
+                var url = "Api/Categories";
+                if (id != null)
+                    url = "Api/Categories/" + id;
+
+
+                var request = await client.GetAsync(url);
+
+                /*  Category category = new Category();
+                  if (category != null)
+                      category.Products = productService.ProductById(category.CategoryId);
+                      */
+
+                if (action != null)
+                    action.Invoke(request);
+                return request;
+            }
+
+        }
+        #endregion[api]
 
         #region [comentario]
         /*

@@ -118,7 +118,7 @@ namespace LincolnHammed.Controllers
             return View(product);
         }
         #endregion
-   
+
         #region[PublicViewBag]
         private void PublicViewBag(Product product = null)
         {
@@ -143,7 +143,7 @@ namespace LincolnHammed.Controllers
             }
 
         }
-#endregion
+        #endregion
 
         #region[comentario]
         /*

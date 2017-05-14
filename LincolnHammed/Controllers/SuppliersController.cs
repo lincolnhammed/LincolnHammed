@@ -13,7 +13,7 @@ namespace LincolnHammed.Controllers
     public class SuppliersController : Controller
     {
         #region[//]
-        
+
         private ProductService productService = new ProductService();
         private CategoryService categoryService = new CategoryService();
         private SupplierService supplierService = new SupplierService();
@@ -143,142 +143,142 @@ namespace LincolnHammed.Controllers
 
         }
         #endregion
-        
+
         #endregion[//]
 
         #region[comentario]
-       /*
-        private EFContext context = new EFContext();
+        /*
+         private EFContext context = new EFContext();
 
-        #region[Action]
-        // GET: Suppliers]
-        public ActionResult Index()
-        {
+         #region[Action]
+         // GET: Suppliers]
+         public ActionResult Index()
+         {
 
-            //  var query1 = context.Supplier.OrderBy(supplier => supplier.Nome).Select(x => new { Name = x.Nome });
-            // var query = from supplier in context.Supplier
-            //  orderby supplier.Nome
-            // select new {
-            //    Name =supplier.Nome
-            //};
-            var supplier= context.Suppliers.OrderBy(s => s.Nome);
+             //  var query1 = context.Supplier.OrderBy(supplier => supplier.Nome).Select(x => new { Name = x.Nome });
+             // var query = from supplier in context.Supplier
+             //  orderby supplier.Nome
+             // select new {
+             //    Name =supplier.Nome
+             //};
+             var supplier= context.Suppliers.OrderBy(s => s.Nome);
 
-            return View(supplier);
-            
-        }
+             return View(supplier);
 
-        #region[Create]
-        public ActionResult Create()
-        {
-            return View();
+         }
 
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        // sobresquita de metodo varias assinaturas diferentes
-        public ActionResult Create(Supplier supplier)
-        {
-            context.Suppliers.Add(supplier);
-            context.SaveChanges();
-            return RedirectToAction("Index");
+         #region[Create]
+         public ActionResult Create()
+         {
+             return View();
 
-        }
-        #endregion
+         }
+         [HttpPost]
+         [ValidateAntiForgeryToken]
+         // sobresquita de metodo varias assinaturas diferentes
+         public ActionResult Create(Supplier supplier)
+         {
+             context.Suppliers.Add(supplier);
+             context.SaveChanges();
+             return RedirectToAction("Index");
 
-        #region[Edit]
-        public ActionResult Edit(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Supplier supplier = context.Suppliers.Find(id);
-            if (supplier == null)
-            {
-                return HttpNotFound();
-            }
-            return View(supplier);
+         }
+         #endregion
 
-        }
+         #region[Edit]
+         public ActionResult Edit(long? id)
+         {
+             if (id == null)
+             {
+                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+             }
+             Supplier supplier = context.Suppliers.Find(id);
+             if (supplier == null)
+             {
+                 return HttpNotFound();
+             }
+             return View(supplier);
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Supplier supplier)
-        {
-            if (ModelState.IsValid)
-            {
+         }
 
-                context.Entry(supplier).State = EntityState.Modified;
-                context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(supplier);
-        }
-        #endregion
+         [HttpPost]
+         [ValidateAntiForgeryToken]
+         public ActionResult Edit(Supplier supplier)
+         {
+             if (ModelState.IsValid)
+             {
 
-        #region[Details]
-        //recebe paramentro ele é um indentificador
-        // long? é opcional
-        public ActionResult Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Supplier supplier = context
-                .Suppliers
-                .Where(f => f.SupplierId == id)
-                .Include("Products.Category")
-                .First();
+                 context.Entry(supplier).State = EntityState.Modified;
+                 context.SaveChanges();
+                 return RedirectToAction("Index");
+             }
+             return View(supplier);
+         }
+         #endregion
 
-            if (supplier == null)
-            {
-                return HttpNotFound();
-            }
-            return View(supplier);
-        }
-        #endregion
+         #region[Details]
+         //recebe paramentro ele é um indentificador
+         // long? é opcional
+         public ActionResult Details(long? id)
+         {
+             if (id == null)
+             {
+                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+             }
+             Supplier supplier = context
+                 .Suppliers
+                 .Where(f => f.SupplierId == id)
+                 .Include("Products.Category")
+                 .First();
 
-        #region[Delete]
-        //	GET:	Fabricantes/Delete/5 
-        public ActionResult Delete(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+             if (supplier == null)
+             {
+                 return HttpNotFound();
+             }
+             return View(supplier);
+         }
+         #endregion
 
-            Supplier supplier = context.Suppliers.Find(id);
-            if (supplier == null)
-            {
-                return HttpNotFound();
+         #region[Delete]
+         //	GET:	Fabricantes/Delete/5 
+         public ActionResult Delete(long? id)
+         {
+             if (id == null)
+             {
+                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+             }
 
-            }
-            return View(supplier);
-        }
+             Supplier supplier = context.Suppliers.Find(id);
+             if (supplier == null)
+             {
+                 return HttpNotFound();
 
-        //	POST:	Fabricantes/Delete/5 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(long id)
-        {
+             }
+             return View(supplier);
+         }
 
-            Supplier supplier = context.Suppliers.Find(id);
-            context.Suppliers.Remove(supplier);
-            context.SaveChanges();
-            TempData["Message"] = "Fabricante	"
-                + supplier.Nome.ToUpper()
-                + "	foi	removido";
-            return RedirectToAction("Index");
-        }
+         //	POST:	Fabricantes/Delete/5 
+         [HttpPost]
+         [ValidateAntiForgeryToken]
+         public ActionResult Delete(long id)
+         {
 
-
-
-        #endregion
+             Supplier supplier = context.Suppliers.Find(id);
+             context.Suppliers.Remove(supplier);
+             context.SaveChanges();
+             TempData["Message"] = "Fabricante	"
+                 + supplier.Nome.ToUpper()
+                 + "	foi	removido";
+             return RedirectToAction("Index");
+         }
 
 
-        #endregion
-   */
+
+         #endregion
+
+
+         #endregion
+    */
         #endregion[cometario]
     }
 }

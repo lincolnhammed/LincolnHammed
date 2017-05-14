@@ -1,12 +1,9 @@
 ﻿@model Models.Register.Supplier
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Registrando	um	NOVO	FABRICANTE";
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -17,8 +14,6 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -27,7 +22,6 @@
             <div class="panel-heading">
                 <h4>Supplier</h4>
             </div>
-
             <div class="panel-body">
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -41,7 +35,6 @@
                 </div>
             </div>
 
-
             <hr />
             <div class="panel-footer panel-info">
                 <div class="col-md-offset-2 col-md-10">
@@ -52,13 +45,9 @@
             </div>
         </div>
     }
-
     @section ScriptPage{
-
         <script src="~/Scripts/jquery.validate.min.js"></script>
-
-        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script> 
-        }
-
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    }
 </body>
 </html>

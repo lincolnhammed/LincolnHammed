@@ -1,39 +1,54 @@
-﻿using System;
+﻿using Models.Register;
+using Models.Tables;
+using Service.Registration;
+using Service.Tables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+
 namespace LincolnHammed.Controllers.API
 {
     public class CategoriesController : ApiController
     {
         // GET: api/Categories
-        public IEnumerable<string> Get()
+        private CategoryService service = new CategoryService();
+
+        // GET: api/Categories
+        public IEnumerable<Category> Get()
         {
-            return new string[] { "value1", "value2" };
+            Category category = new Category();
+
+            return service.Get();
         }
 
         // GET: api/Categories/5
-        public string Get(int id)
+        public Category Get(long id)
         {
-            return "value";
+            return service.GetCategoryById(id);
         }
 
         // POST: api/Categories
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Category value)
         {
+            service.SaveCategory(value);
+
         }
 
         // PUT: api/Categories/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(long? id, [FromBody]Category value)
         {
+            service.SaveCategory(value);
         }
 
         // DELETE: api/Categories/5
-        public void Delete(int id)
+        public void Delete(long id)
         {
+            service.DeleteCategoryForId(id);
         }
     }
 }
+

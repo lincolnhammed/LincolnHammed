@@ -4,7 +4,7 @@ using System.Web.Http;
 
 namespace LincolnHammed.Controllers.API
 {
-   
+
     public class SuppliersController : ApiController
     {
         // GET: api/Suppliers

@@ -25,7 +25,7 @@ namespace Persistences.Dall.Registers
                 .Products
                 .Where(p => p.ProductId == id)
                 .Include(c => c.Category)
-                .Include(f =>f.Supplier).First();
+                .Include(f => f.Supplier).First();
         }
         public void SaveProduct(Product product)
         {

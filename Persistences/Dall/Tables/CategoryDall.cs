@@ -3,23 +3,23 @@ using Models.Tables;
 using Persistences.Contexts;
 using System.Data.Entity;
 using System.Linq;
-
+using System;
 
 namespace Persistences.Dall.Tables
 {
-   public  class CategoryDall
+    public class CategoryDall
     {
         private EFContext context = new EFContext();
         public IQueryable<Category> GetCategoryOrderedByName()
         {
             return context.Categories.OrderBy(b => b.Nome);
         }
-        public Category GetCategoryForId(long id)
+        public Category GetCategoryForId(long? id)
         {
-                return context.Categories
-                .Where(s => s.CategoryId == id)
-                .Include(s => s.Products)
-                .First();
+            return context.Categories
+            .Where(s => s.CategoryId == id)
+            .Include(s => s.Products)
+            .First();
         }
         public void SaveCategory(Category category)
         {
@@ -33,6 +33,16 @@ namespace Persistences.Dall.Tables
             }
             context.SaveChanges();
         }
+
+
+
+        public IQueryable<Category> Get()
+        {
+
+            return context.Categories;
+
+        }
+
         public Category DeleteCategoryForId(long id)
         {
             Category category = GetCategoryForId(id);

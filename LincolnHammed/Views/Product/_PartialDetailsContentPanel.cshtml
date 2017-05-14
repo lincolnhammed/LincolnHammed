@@ -1,11 +1,8 @@
 ﻿@model Models.Register.Product
-
 <div class="form-group">
-
     @Html.LabelFor(model => model.Nome)
     <br />
     <div class="input-group">
-
         <span class="input-group-addon">
             <i class="glyphicon	glyphicon-user"> </i>
         </span>
@@ -18,7 +15,6 @@
        }
    })
     </div>
-
 </div>
 <div class="form-group">
     @Html.LabelFor(model => model.Category.Nome)
@@ -26,7 +22,6 @@
     <div class="input-group">
         <span class="input-group-addon">
             <i class="glyphicon	glyphicon-user">
-
             </i>
         </span>
         @Html.EditorFor(model => model.Category.Nome, new

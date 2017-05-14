@@ -8,8 +8,8 @@ namespace Persistences.Dall.Registers
 {
     public class SupplierDall
     {
-        
-        
+
+
         private EFContext context = new EFContext();
         public IQueryable<Supplier>
         GetSupplierOrdereByName()
@@ -19,10 +19,10 @@ namespace Persistences.Dall.Registers
 
         public Supplier GetSupplierForId(long id)
         {
-               return context.Suppliers
-                .Where(s => s.SupplierId == id)
-                .Include(s => s.Products)
-                .First();
+            return context.Suppliers
+             .Where(s => s.SupplierId == id)
+             .Include(s => s.Products)
+             .First();
         }
         public void SaveSupplier(Supplier supplier)
         {

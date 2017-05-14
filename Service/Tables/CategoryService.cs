@@ -1,14 +1,15 @@
 ﻿using Models.Tables;
 using Persistences.Dall.Tables;
 using System.Linq;
-
+using System;
 
 namespace Service.Tables
 {
-   public class CategoryService
+    public class CategoryService
     {
         private CategoryDall categoriaDAL = new CategoryDall();
-        public IQueryable<Category> GetCategoriesOrderByName() {
+        public IQueryable<Category> GetCategoriesOrderByName()
+        {
             return categoriaDAL.GetCategoryOrderedByName();
         }
         public Category GetCategoryById(long id)
@@ -23,5 +24,11 @@ namespace Service.Tables
         {
             return categoriaDAL.DeleteCategoryForId(id);
         }
+        public IQueryable<Category> Get()
+        {
+            return categoriaDAL.Get();
+        }
+
+
     }
 }
