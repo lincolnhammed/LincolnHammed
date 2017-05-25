@@ -4,13 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Visualizando	detalhes	do	PRODUTO	a	ser	removi do";
 }
-<div class="panel	panel-primary">
+<div class="panel panel-primary">
     <div class="panel-heading">
         Visualizando	detalhes	do	PRODUTO	a	ser	removido
     </div>
+
     <div class="panel-body">
         @Html.Partial("~/Views/Product/_PartialDetailsContentPanel.cshtml", Model)
     </div>
+
     <div class="panel-footer	panel-info">
         <a href="#" class="btn	btn-info" data-toggle="modal" data-target="#deleteConfirmationModal">Remover</a>
         @Html.ActionLink("Retornar	para	a	listagem", "Index", null, new { @class = "btn	btn-info" })

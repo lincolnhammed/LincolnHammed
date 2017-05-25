@@ -29,6 +29,9 @@ namespace Service.Tables
             return categoriaDAL.Get();
         }
 
-
+        public Category ById(long id)
+        {
+            return categoriaDAL.ById(id);
+        }
     }
 }

@@ -19,10 +19,12 @@ namespace Persistences.Dall.Registers
 
         public Supplier GetSupplierForId(long id)
         {
-            return context.Suppliers
-             .Where(s => s.SupplierId == id)
-             .Include(s => s.Products)
-             .First();
+
+            return context
+                .Suppliers
+                .Where(s => s.SupplierId == id)
+                .Include("Products.Category")
+                .First();
         }
         public void SaveSupplier(Supplier supplier)
         {

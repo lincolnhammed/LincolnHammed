@@ -1,4 +1,5 @@
-﻿using Models.Tables;
+﻿using LincolnHammed.Models;
+using Models.Tables;
 using Newtonsoft.Json;
 using Persistences.Contexts;
 using Service.Registers;
@@ -33,10 +34,10 @@ namespace LincolnHammed.Controllers
         #endregion
         */
         #region[Edit]
-        public ActionResult Edit(long? id)
+        public async Task<ActionResult> Edit(long? id)
         {
             PublicViewBag(categoryService.GetCategoryById((long)id));
-            return GetViewCategoryById(id);
+            return await GetViewCategoryById(id);
         }
 
         [HttpPost]
@@ -61,9 +62,9 @@ namespace LincolnHammed.Controllers
         #endregion
 
         #region[ Delete]
-        public ActionResult Delete(long? id)
+        public async Task<ActionResult> Delete(long? id)
         {
-            return GetViewCategoryById(id);
+            return await GetViewCategoryById(id);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,9 +87,9 @@ namespace LincolnHammed.Controllers
 
         #region[ Details] 
 
-        public ActionResult Details(long? id)
+        public async Task<ActionResult> Details(long? id)
         {
-            return GetViewCategoryById(id);
+            return await GetViewCategoryById(id);
         }
         #endregion
 
@@ -112,19 +113,30 @@ namespace LincolnHammed.Controllers
         #endregion
 
         #region[GetViewCategoryById] 
-        private ActionResult GetViewCategoryById(long? id)
+        private async Task<ActionResult> GetViewCategoryById(long? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(
-                HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult( HttpStatusCode.BadRequest);
             }
-            Category category = categoryService.GetCategoryById((long)id);
-            if (category == null)
+
+            var apiModel = new CategoryAPIModel();
+
+            var resp = await Get(id, response =>
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    apiModel = JsonConvert.DeserializeObject<CategoryAPIModel>(result);
+                }
+            });
+
+            if (apiModel.Message == "!OK")
             {
                 return HttpNotFound();
             }
-            return View(category);
+
+            return View(apiModel.Result);
         }
         #endregion
 
@@ -155,17 +167,17 @@ namespace LincolnHammed.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var list = new List<Category>();
+            var apiModel = new CategoryListAPIModel();
             {
                 var resp = await Get(null, response =>
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var result = response.Content.ReadAsStringAsync().Result;
-                        list = JsonConvert.DeserializeObject<List<Category>>(result);
+                        apiModel = JsonConvert.DeserializeObject<CategoryListAPIModel>(result);
                     }
                 });
-                return View(list);
+                return View(apiModel.Result);
             }
         }
         private async Task<HttpResponseMessage> Get(long? id, Action<HttpResponseMessage> action)
@@ -184,11 +196,6 @@ namespace LincolnHammed.Controllers
 
 
                 var request = await client.GetAsync(url);
-
-                /*  Category category = new Category();
-                  if (category != null)
-                      category.Products = productService.ProductById(category.CategoryId);
-                      */
 
                 if (action != null)
                     action.Invoke(request);

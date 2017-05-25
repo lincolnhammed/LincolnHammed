@@ -16,10 +16,17 @@ namespace Persistences.Dall.Tables
         }
         public Category GetCategoryForId(long? id)
         {
-            return context.Categories
-            .Where(s => s.CategoryId == id)
-            .Include(s => s.Products)
-            .First();
+            return context
+                .Categories
+                .Where(s => s.CategoryId == id)
+                .Include("Products.Supplier")
+                .First();
+        }
+        public Category ById(long? id)
+        {
+            return context
+                .Categories
+                .First();
         }
         public void SaveCategory(Category category)
         {

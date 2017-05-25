@@ -1,4 +1,5 @@
-﻿using Models.Register;
+﻿using LincolnHammed.Models;
+using Models.Register;
 using Models.Tables;
 using Service.Registration;
 using Service.Tables;
@@ -16,19 +17,38 @@ namespace LincolnHammed.Controllers.API
     {
         // GET: api/Categories
         private CategoryService service = new CategoryService();
+        private ProductService productService = new ProductService();
 
         // GET: api/Categories
-        public IEnumerable<Category> Get()
+        public CategoryListAPIModel Get()
         {
-            Category category = new Category();
-
-            return service.Get();
+            var apiModel = new CategoryListAPIModel();
+            try
+            {
+                apiModel.Result = service.Get().ToList();
+            }
+            catch (Exception)
+            {
+                apiModel.Message = "!OK";
+            }
+            return apiModel;
         }
 
-        // GET: api/Categories/5
-        public Category Get(long id)
+        public CategoryAPIModel Get(long id)
         {
-            return service.GetCategoryById(id);
+            var apiModel = new CategoryAPIModel();
+
+            try
+            {
+                apiModel.Result = service.ById(id);
+                if (apiModel.Result != null)
+                    apiModel.Result.Products = productService.GetProductsByCategory(id).ToList();
+            }
+            catch (Exception)
+            {
+                apiModel.Message = "!OK";
+            }
+            return apiModel;
         }
 
         // POST: api/Categories
@@ -49,6 +69,7 @@ namespace LincolnHammed.Controllers.API
         {
             service.DeleteCategoryForId(id);
         }
+
     }
 }
 

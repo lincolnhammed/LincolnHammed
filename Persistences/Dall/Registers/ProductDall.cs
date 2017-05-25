@@ -5,6 +5,9 @@ using Models.Tables;
 using Persistences.Contexts;
 using System.Linq;
 using System.Data.Entity;
+using System;
+using System.Collections.Generic;
+
 namespace Persistences.Dall.Registers
 {
 
@@ -17,7 +20,7 @@ namespace Persistences.Dall.Registers
                 .Products
                 .Include(c => c.Category)
                 .Include(f => f.Supplier)
-                .OrderBy(n => n.Nome);
+                .OrderBy(n => n.Supplier.Nome);
         }
         public Product GetProductForId(long id)
         {
@@ -39,6 +42,14 @@ namespace Persistences.Dall.Registers
             }
             context.SaveChanges();
         }
+
+        public IQueryable<Product> ByCategory(long id)
+        {
+            return context
+                .Products
+                .Where(p => p.CategoryId.HasValue && p.CategoryId.Value == id);
+        }
+
         public Product DeleteProductForId(long id)
 
         {
