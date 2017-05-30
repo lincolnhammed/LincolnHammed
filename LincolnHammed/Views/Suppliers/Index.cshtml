@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Models.Register.Supplier>
 @{				Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Listagem	de	FABRICANTES";
+    ViewBag.Title = "List of MANUFACTURERS";
 }
 @if (@TempData["Message"] != null)
 {	<div class="alert	alert-success" role="alert">
@@ -9,7 +9,7 @@
 }
 <div class="panel	panel-primary">
     <div class="panel-heading">
-        Relação	de	FABRICANTES	registrados
+        List of registered MANUFACTURERS
     </div>
     <div class="panel-body">
         <table class="table	table-striped table-hover">
@@ -42,7 +42,7 @@
         </table>
     </div>
     <div class="panel-footer	panel-info">
-        @Html.ActionLink("Registrar	um	novo FABRICANTE", "Create", null, new { @class = "btn	btn-success" })
+        @Html.ActionLink("Register a new MANUFACTURER", "Create", null, new { @class = "btn	btn-success" })
     </div>
 </div>
 @section	styles{

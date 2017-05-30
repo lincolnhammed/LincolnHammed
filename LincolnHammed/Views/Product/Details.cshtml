@@ -1,19 +1,19 @@
 ﻿@model Models.Register.Product
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Alterando	os	dados	de	um	FABRICANTE";
+    ViewBag.Title = "Product by changing the data of a product";
 }
 <div class="panel	panel-primary">
     <div class="panel-heading">
-        Visualizando	detalhes	de	um	FABRICANTE
+        Viewing Product Details
     </div>
     <div class="panel-body">
         @Html.Partial("~/Views/Product/_PartialDetailsContentPanel.cshtml", Model)
     </div>
 
     <div class="panel-footer	panel-info">
-        @Html.ActionLink("Alterar", "Edit", new { id = Model.ProductId }, new { @class = "btn	btn-info" })
-        @Html.ActionLink("Retornar	para	a	listagem", "Index", null, new { @class = "btn	btn-info" })
+        @Html.ActionLink("Change", "Edit", new { id = Model.ProductId }, new { @class = "btn	btn-info" })
+        @Html.ActionLink("Return to the list", "Index", null, new { @class = "btn	btn-info" })
     </div>
 </div>
 @section	ScriptPage	{

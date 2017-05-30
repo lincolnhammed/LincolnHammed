@@ -180,6 +180,7 @@ namespace LincolnHammed.Controllers
                 return View(apiModel.Result);
             }
         }
+
         private async Task<HttpResponseMessage> Get(long? id, Action<HttpResponseMessage> action)
         {
             using (var client = new HttpClient())

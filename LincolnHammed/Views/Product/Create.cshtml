@@ -2,14 +2,14 @@
 @model Models.Register.Product
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Registrando	um	NOVO	PRODUTO";
+    ViewBag.Title = "Registering a NEW PRODUCT";
 
 }
 @using (Html.BeginForm())
 {	@Html.AntiForgeryToken()
     <div class="panel	panel-primary">
         <div class="panel-heading">
-            Registro	de	um	NOVO	PRODUTO
+            Registration of a NEW PRODUCT
         </div>
         <div class="panel-body">
             <div class="form-horizontal">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new
+                    @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new
                {
                    @class = "control-label	col-md-2"
                })
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.SupplierId, "SupplierId", htmlAttributes: new { @class = "control-label	col-md-2" })
+                    @Html.LabelFor(model => model.SupplierId, "Supplier", htmlAttributes: new { @class = "control-label	col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownList("SupplierId", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.SupplierId, "", new { @class = "text-danger" })
@@ -41,7 +41,7 @@
             </div>	<div class="panel-footer panel-info">
                 <div class="col-md-offset-2	col-md-10">
                     <input type="submit" value="Adicionar	Produto" class="btn	btn-danger" />
-                    @Html.ActionLink("Retornar	para	a	listagem	de	PRODUTOS", "Index", null, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Return to PRODUCT listing", "Index", null, new { @class = "btn btn-warning" })
                 </div>
                 <br />
                 <br />

@@ -2,7 +2,7 @@
 @model Models.Register.Product
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Visualizando	detalhes	do	PRODUTO	a	ser	removi do";
+    ViewBag.Title = "Viewing PRODUCT details to be removed";
 }
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -15,7 +15,7 @@
 
     <div class="panel-footer	panel-info">
         <a href="#" class="btn	btn-info" data-toggle="modal" data-target="#deleteConfirmationModal">Remover</a>
-        @Html.ActionLink("Retornar	para	a	listagem", "Index", null, new { @class = "btn	btn-info" })
+        @Html.ActionLink("Return to the list", "Index", null, new { @class = "btn	btn-info" })
     </div>
 </div>
 <div class="modal	fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -25,11 +25,11 @@
                 <button type="button" class="close" data-ELTEismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title">Confirmação	de	exclusão	de	PRODUTO</h4>
+                <h4 class="modal-title">Confirmation of exclusion of PRODUCT</h4>
             </div>
             <div class="modal-body">
                 <p>
-                    Você	está	prestes	a	remover	o	produto	@Model.Nome.ToUpper()	do	cadastro.
+                    You are about to remove the product	@Model.Nome.ToUpper()	do	cadastro.
                 </p>
                 <p>
                     <strong>

@@ -9,6 +9,7 @@ namespace LincolnHammed.Models
    
     public class CategoryListAPIModel : APIModel
     {
+        //iqueryable no lugar da ilist
         public IList<Category> Result { get; set; }
     }
 

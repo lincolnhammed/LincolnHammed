@@ -16,10 +16,12 @@ namespace Persistences.Dall.Tables
         }
         public Category GetCategoryForId(long? id)
         {
+
+
             return context
                 .Categories
                 .Where(s => s.CategoryId == id)
-                .Include("Products.Supplier")
+                .Include("Products.Suppliers")
                 .First();
         }
         public Category ById(long? id)

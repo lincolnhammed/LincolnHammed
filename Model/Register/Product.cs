@@ -13,7 +13,7 @@ namespace Models.Register
     {
 
         public long? ProductId { get; set; }
-        [DisplayName("Produto")]
+        [DisplayName("Product")]
         public string Nome { get; set; }
         public long? SupplierId { get; set; }
         public long? CategoryId { get; set; }
